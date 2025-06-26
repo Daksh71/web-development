@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGE Calculator</title>
+    <link rel="stylesheet" href="sty.css">
+</head>
+<body>
+
+    <h1>Age Calculator</h1>
+    <label for="dob">Enter Your Date of Birth</label>
+    <input type="datetime-local" id="dob">
+
+    <div id="age"></div>
+
+    <script>
+        function calculateAge() {
+            let birthdob = document.getElementById('dob').value;
+            if (!birthdob) return; // prevent calculation if field is empty
+
+            let birth = new Date(birthdob);
+            let birth_date = birth.getDate();
+            let birth_month = birth.getMonth();
+            let birth_year = birth.getFullYear();
+            let birth_hour = birth.getHours();
+            let birth_minute = birth.getMinutes();
+            let birth_second = birth.getSeconds();
+
+            let today = new Date();
+            let today_date = today.getDate();
+            let today_month = today.getMonth();
+            let today_year = today.getFullYear();
+            let today_hour = today.getHours();
+            let today_minute = today.getMinutes();
+            let today_second = today.getSeconds();
+
+            let age_year = today_year - birth_year;
+            let age_month = today_month - birth_month;
+            let age_day = today_date - birth_date;
+            let age_hour = today_hour - birth_hour;
+            let age_minute = today_minute - birth_minute;
+            let age_second = today_second - birth_second;
+
+            if (age_second < 0) {
+                age_second += 60;
+                age_minute--;
+            }
+
+            if (age_minute < 0) {
+                age_minute += 60;
+                age_hour--;
+            }
+
+            if (age_hour < 0) {
+                age_hour += 24;
+                age_day--;
+            }
+
+            if (age_day < 0) {
+                age_month--;
+                const daysInPrevMonth = new Date(today_year, today_month, 0).getDate();
+                age_day += daysInPrevMonth;
+            }
+
+            if (age_month < 0) {
+                age_month += 12;
+                age_year--;
+            }
+
+            document.getElementById('age').innerText = 
+                "You are " + age_year + " years, " + age_month + " months, " + age_day + " days, " +
+                age_hour + " hours, " + age_minute + " minutes, and " + age_second + " seconds old.";
+
+            // Recursively call the function every second
+            setTimeout(calculateAge, 10);
+        }
+
+        // Start the live clock when a date is selected
+        document.getElementById('dob').addEventListener('change', calculateAge);
+    </script>    
+</body>
+</html>
