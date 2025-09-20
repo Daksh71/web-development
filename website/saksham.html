@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFORMATION</title>
+    <link rel="stylesheet" href="3pg.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="navdiv">
+            <div class="logo"><a href="#">STUDENT INFO
+                    <i class="fa-solid fa-house-user"></i>
+                </a></div>
+            <ul>
+                <li><a href="#">
+                        <i class="fa-solid fa-house-user"></i>HOME
+                    </a></li>
+                <li><a href="#">ABOUT
+                        <i class="fa-solid fa-eject"></i>
+                    </a></li>
+                <li><a href="#">CONTACT
+                        <i class="fa-solid fa-phone"></i>
+                    </a></li>
+                <!-- <li><a href="#" class="btn">SignIn
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </a></li> -->
+                <li><a href="#" class="btn" id="signout">SignOut
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </a></li>
+
+            </ul>
+
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#">Profile
+                    <i class="fa-solid fa-house-user"></i>
+                </a></li>
+            <li><a href="#">fees
+                    <i class="fa-solid fa-money-check"></i>
+                </a></li>
+        </ul>
+    </nav>
+    <div class="wrapper">
+        <div class="section">
+            <div class="box-area">
+                <h2></h2>
+            </div>
+
+    </nav>
+    <!-- <div class="wrapper">
+        <div class="section">
+            <div class="box-area">
+                <h2></h2>
+            </div>
+        </div>
+    </div> -->
+
+
+    <div class="student-card">
+        <h3>Student Details</h3>
+        <div class="student-info">
+            <div class="student-photo">
+                <img src="saksham.png" alt="Student Photo" />
+            </div>
+            <div class="student-main">
+                <h2>saksham</h2>
+                <div class="student-data">
+                    <div><span>📘 Semester</span>
+                        <p>MBA (I-SEM-ODD- B)(2024–26)</p>
+                    </div>
+                    <div><span># Admission No.</span>
+                        <p>ABCD54872</p>
+                    </div>
+                    <div><span>✏️ Mobile No.</span>
+                        <p>8759741582</p>
+                    </div>
+                    <div><span>📊 Attendance</span>
+                        <p>60% (18 Leaves)</p>
+                    </div>
+                    <div><span>📅 Date of Birth</span>
+                        <p>29th Feb 2007</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="academic-details">
+    <h3>Programme Level</h3>
+    <div class="programme-level">
+        <div class="info-item">
+            <span>Student’s Name</span>
+            <p>Saksham</p>
+        </div>
+        <div class="info-item">
+            <span>Admission Number</span>
+            <p>1024578564</p>
+        </div>
+        <div class="info-item">
+            <span>Contact Number</span>
+            <p>8759741582</p>
+        </div>
+        <div class="info-item">
+            <span>Email Address</span>
+            <p>Saksham@GMAIL.COM</p>
+        </div>
+        <div class="info-item">
+            <span>DOB</span>
+            <p>29-02-2007</p>
+        </div>
+        <div class="info-item">
+            <span>Student Contact No. (WhatsApp No.)</span>
+            <p>8475962347</p>
+        </div>
+        <div class="info-item">
+            <span>Blood Group</span>
+            <p>B +</p>
+        </div>
+        <div class="info-item">
+            <span>Religion</span>
+            <p>Hundhu</p>
+        </div>
+        <div class="info-item">
+            <span>Aadhar Number</span>
+            <p>6547 2458 5487</p>
+        </div>
+        <div class="info-item">
+            <span>Fee Category</span>
+            <p>PAID</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+</body>
+<script>
+
+    const user = localStorage.getItem("loggedInUser");
+
+    if (user) {
+        document.querySelector("h2").innerText = `Welcome`;
+    }
+document.getElementById("signout").addEventListener("click", function (e) {
+    e.preventDefault(); 
+    localStorage.removeItem("loggedInUser"); 
+    window.location.href = "http://127.0.0.1:5500/website/log.html"; 
+});
+
+</script>
+
+</html>

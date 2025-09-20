@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFO Page</title>
+    <link rel="stylesheet" href="2pg.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="navdiv">
+            <div class="logo"><a href="#">STUDENT INFO
+                    <i class="fa-solid fa-house-user"></i>
+                </a></div>
+            <ul>
+                <li><a href="#">
+                        <i class="fa-solid fa-house-user"></i>HOME
+                    </a></li>
+                <li><a href="#">ABOUT
+                        <i class="fa-solid fa-eject"></i>
+                    </a></li>
+                <li><a href="#">CONTACT
+                        <i class="fa-solid fa-phone"></i>
+                    </a></li>
+                <li><a href="#" class="btn">SignIn
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </a></li>
+                <li><a href="#" class="btn">SignOut
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </a></li>
+
+            </ul>
+
+        </div>
+    </div>
+
+ <nav>
+    <ul>
+            <li><a href="#" id="Profile" onclick="switchtab()">Profile
+                <i class="fa-solid fa-house-user"></i>
+            </a></li>
+            <li><a href="#">fees 
+                <i class="fa-solid fa-money-check"></i>
+            </a></li>
+     </ul>
+ </nav>
+ <div class="wrapper">
+    <div class="section">
+        <div class="box-area">
+            <h2></h2>
+        </div>
+    </div>
+ </div>  
+
+</body>
+
+<script>
+
+const user = localStorage.getItem("loggedInUser");
+
+  if (user) {
+      document.querySelector("h2").innerText = `Welcome`;
+  }
+function switchtab() {
+    if (user == "saksham") {
+        window.location.href = "http://127.0.0.1:5500/website/saksham.html";
+    } else if (user == "ankit") {
+        window.location.href = "http://127.0.0.1:5500/website/ankit.html";
+    } else if (user == "sachin") {
+        window.location.href = "http://127.0.0.1:5500/website/sachin.html";
+    } else if (user == "Faiz") {
+        window.location.href = "http://127.0.0.1:5500/website/faiz.html";
+    } else {
+        alert("User not recognized!");
+    }
+}
+
+</script>
+
+</html>

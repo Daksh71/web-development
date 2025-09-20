@@ -1,0 +1,115 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.wrap {
+    width: 420px;
+    color: aliceblue;
+    font-size: 16px;
+
+}
+
+.wrap .input-box {
+    width: 100%;
+    height: 50px;
+    position: relative;
+    margin: 20px;
+    background: linear-gradient(to right, #3d53b5, #764ba2);
+
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url("4230932.png");
+    background-size: cover;       
+    background-repeat: no-repeat; 
+    background-position: center; 
+}
+
+
+form {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    width: 300px;
+}
+
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+
+.input-box {
+    position: relative;
+    margin-bottom: 25px;
+
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+.input-box i {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    /* properly align icon inside input */
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 16px;
+    margin: 0;
+    /* remove previous invalid margin */
+}
+
+.remember input {
+    margin-right: 8px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+button {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+    left: 18px;
+    padding: 12px;
+    background-color: #5a67d8;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button i {
+    margin-left: 8px;
+}
+
+button:hover {
+    background-color: #434190;
+}

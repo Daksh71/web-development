@@ -1,0 +1,270 @@
+*{
+    text-decoration: none ;
+    padding: 0%;
+    margin: 0%;  
+}
+
+.navbar{
+    background-color: rgb(136, 164, 90);
+    font-family: Arial, Helvetica, sans-serif;
+    padding-right: 15px;
+    padding-left: 15px;
+    height: 60px;
+}
+
+.navdiv{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo a {
+    font-weight: 600;
+    font-size: 35px;
+    color: black;
+}
+
+li {
+    list-style: none;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+li a {
+    color: aliceblue;
+    font-size: 18px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    margin-right: 25px;
+}
+
+.btn {
+    background-color: black;
+    color: aqua;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+nav {
+    display: inline-block;
+    position: relative;
+    /* top: 60px;  */
+    left: 0;
+    width: 200px;
+    height: 8000px;
+    background-color: #2e3b2d;
+    padding-top: 20px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 20px 0;
+    text-align: left;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    transition: 0.3s ease;
+}
+
+nav ul li a i {
+    margin-left: auto;
+}
+
+nav ul li a:hover {
+    background-color: #445d3a;
+    border-left: 5px solid #8fc866;
+    padding-left: 15px;
+}
+
+
+.wrapper {
+    margin-left: 10px; 
+    padding: 20px;
+    display: inline-block;
+    height: 30px;
+    /* width: 850px; */
+    position: absolute;
+    width: 2000px;
+}
+
+
+.box-area {
+    background-color: #e6f0d9;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+
+.navbar ul li a {
+    transition: 0.3s ease; 
+}
+
+.navbar ul li a:hover {
+    background-color: #eafa6b; 
+    color: black;              
+    padding: 8px 15px;         
+    border-radius: 5px;        
+}
+
+
+
+
+
+ .student-card {
+ display: inline-flex;
+ background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px 30px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin: 30px auto;
+  max-width: fit-content;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.student-card h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.student-info {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.student-photo img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ccc;
+}
+
+.student-main {
+  flex: 1;
+}
+
+.student-main h2 {
+  margin-top: 0;
+  font-size: 28px;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+.student-data {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  border-top: 1px dashed #ccc;
+  padding-top: 10px;
+}
+
+.student-data div {
+  flex: 1 1 200px;
+  border-right: 1px dashed #ccc;
+  padding-right: 15px;
+}
+
+.student-data div:last-child {
+  border-right: none;
+}
+
+.student-data span {
+  font-weight: 600;
+  display: block;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.student-data p {
+  margin: 0;
+  color: #555;
+  font-size: 15px;
+}
+
+
+/* === Academic Details Section Styling === */
+
+.academic-details {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  margin: 40px auto;
+  max-width: 1200px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Section Title */
+.academic-details h3 {
+  font-size: 22px;
+  margin-bottom: 25px;
+  color: #333;
+  font-weight: 600;
+  border-bottom: 2px solid #ef4444; /* red line like screenshot */
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+/* Grid container for fields */
+.programme-level {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 10px;
+}
+
+/* Each data item */
+.info-item span {
+  display: block;
+  font-size: 14px;
+  color: #5f6c7b;
+  margin-bottom: 4px;
+}
+
+.info-item p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+  word-break: break-word;
+}
+
+/* Responsive tweak */
+@media (max-width: 600px) {
+  .academic-details {
+    padding: 20px;
+  }
+
+  .programme-level {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .academic-details h3 {
+    font-size: 20px;
+  }
+
+  .info-item p {
+    font-size: 15px;
+  }
+}
+
