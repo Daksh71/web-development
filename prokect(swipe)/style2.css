@@ -1,0 +1,96 @@
+/* .banner {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+} */
+
+
+
+.banner .product {
+  height: 500px;
+  width: 500px;
+  position: absolute;
+  left: 50%;
+  bottom: 170px;
+  z-index: 1;
+  transition: 0.7s;
+  color: aqua;
+  transform: translateX(-50%);
+  --left: 0px;
+  display: flex;
+}
+
+.banner .product .soda {
+  background-size: auto;
+  height: 100vh;
+  aspect-ratio: 2 / 4;
+  background-blend-mode: multiply;
+  background:
+var(--url) var(--left) var(--left),
+  url(Pics2/mockup.png);
+  mask-image: url(Pics2/mockup.png);
+  mask-size: auto 100%;
+  transition: 0.7s;
+  transform: translateX(-50%);
+  position: relative; /* Needed for transform to behave predictably */
+  left: 50%;
+}
+
+.banner .product:hover {
+  --left: -100px;
+  transform: translateX(-50%) translateY(-120%);
+}
+
+.banner .rock {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: 0.7s;
+}
+
+.banner .rock img:nth-child(1) {
+  height: 170px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -30px;
+  transition: 0.7s;
+}
+
+.banner:has(.product:hover) .rock img:nth-child(1) {
+  transform: translateX(-50%) translateY(50px);
+}
+
+.banner .rock img:nth-child(2) {
+  height: 50%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transition: 0.7s;
+}
+
+.banner:has(.product:hover) .rock img:nth-child(2) {
+  transform: translateX(-100px) translateY(100px);
+}
+
+.banner .rock img:nth-child(3) {
+  height: 100%;
+  position: absolute;
+  right: 0;
+  bottom: -100px;
+  transform: rotate(-25deg);
+  transition: 0.7s;
+}
+
+.banner:has(.product:hover) .rock img:nth-child(3) {
+  transform: translateX(100px) translateY(100px);
+}
+
+.banner .product .soda:nth-child(2) {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.banner .product:hover .soda:nth-child(2) {
+  opacity: 1;
+}
