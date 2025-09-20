@@ -1,0 +1,103 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(to right, #434343, #000000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+/* Container holds arrows + frame */
+.container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 20px;
+  background-color: purple;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+/* Arrows */
+.leftarrow,
+.rightarrow {
+  height: 80px;
+  width: 80px;
+  cursor: pointer;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+  transition: transform 0.2s ease, filter 0.3s ease;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+}
+
+.leftarrow:hover,
+.rightarrow:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+}
+
+/* Flip left arrow */
+.leftarrow {
+  transform: rotate(180deg);
+}
+
+/* Frame and Slider */
+.frame {
+  width: 800px;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+}
+
+.slider {
+  display: flex;
+  transition: all 0.8s ease-in-out;
+}
+
+/* Images inside slider */
+.img {
+  width: 800px;
+  height: 500px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.img:hover {
+  transform: scale(1.03);
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .frame {
+    width: 90vw;
+    height: 300px;
+  }
+
+  .img {
+    width: 90vw;
+    height: 300px;
+  }
+
+  .leftarrow,
+  .rightarrow {
+    height: 50px;
+    width: 50px;
+  }
+
+  .container {
+    gap: 20px;
+    flex-direction: column;
+  }
+}
