@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en" ng-app="editApp">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Student</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #356ba1, #1772ce);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      box-shadow: #343a40;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 10px 30px;
+      width: 100%;
+      max-width: 500px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 24px;
+      color: #343a40;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #495057;
+      font-size: 15px;
+    }
+
+    input {
+      padding: 10px 12px;
+      margin-bottom: 20px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      transition: border-color 0.3s;
+      width: 100%;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    button[type="submit"] {
+      padding: 12px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+
+  </style>
+</head>
+
+<body ng-controller="EditController">
+  <div class="container">
+    <h2>Edit Student Details</h2>
+
+    <form ng-submit="updateStudent()">
+      <label>Name:
+        <input type="text" ng-model="student.name" required></label>
+
+      <label>Admission Number:
+        <input type="text" ng-model="student.admissionNumber" required></label>
+
+      <label>Email Address:
+        <input type="email" ng-model="student.email" required></label>
+
+      <label>Class:
+        <input type="text" ng-model="student.class"></label>
+
+      <label>Section:
+        <input type="text" ng-model="student.section"></label>
+
+      <label>Age:
+        <input type="number" ng-model="student.age"></label>
+
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+
+  <script>
+    angular.module('editApp', [])
+      .controller('EditController', ['$scope', function ($scope) {
+        const query = new URLSearchParams(window.location.search);
+        const studentIndex = parseInt(query.get('id'));
+
+        const savedStudents = localStorage.getItem('students');
+        const students = savedStudents ? JSON.parse(savedStudents) : [];
+
+        $scope.student = angular.copy(students[studentIndex]);
+
+        $scope.updateStudent = function () {
+          students[studentIndex] = angular.copy($scope.student);
+          localStorage.setItem('students', JSON.stringify(students));
+          alert("Student updated successfully!");
+          window.location.href = 'index.html';
+            };
+      }]);
+  </script>
+</body>
+
+</html>

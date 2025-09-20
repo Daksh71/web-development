@@ -1,0 +1,181 @@
+<!-- remove the comments from the cope  -->
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en" ng-app="editApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Student</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="EditController">
+
+  <h2>Edit Student Details</h2>
+
+  <form ng-submit="updateStudent()">
+    <label>Name:
+    <input type="text" ng-model="student.name" required><br></label>
+
+    <label>Admission Number:
+    <input type="text" ng-model="student.admissionNumber" required><br></label>
+
+    <label>Email Address:
+    <input type="email" ng-model="student.email" required><br></label>
+
+    <label>Class:
+    <input type="text" ng-model="student.class"><br></label>
+
+    <label>Section:
+    <input type="text" ng-model="student.section"><br></label>
+
+    <label>Age:
+    <input type="number" ng-model="student.age"><br></label>
+
+    
+
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <script>
+// Create a new AngularJS app called 'editApp'
+angular.module('editApp', [])
+
+  // Create a controller named 'EditController'
+  .controller('EditController', ['$scope', function ($scope) {
+
+    // Step 1: Get the student ID (index) from the URL: ?id=0
+    const query = new URLSearchParams(window.location.search);
+    const studentIndex = parseInt(query.get('id')); // e.g. ?id=2 → 2
+
+    // Step 2: Load the entire student list from localStorage
+    const savedStudents = localStorage.getItem('students');
+    const students = savedStudents ? JSON.parse(savedStudents) : [];
+
+    // Step 3: Get the student to edit using the index from the URL
+    $scope.student = angular.copy(students[studentIndex]);
+
+    // Step 4: Function to save the updated student info
+    $scope.updateStudent = function () {
+      // Replace the original student data with the updated one
+      students[studentIndex] = angular.copy($scope.student);
+
+      // Save the full updated list back to localStorage
+      localStorage.setItem('students', JSON.stringify(students));
+
+      // Show a success message
+      alert("Student record updated successfully!");
+
+      // Redirect back to the main page
+      window.location.href = 'index.html';
+    };
+
+  }]);
+
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+remove the comments 
+<!DOCTYPE html>
+<html lang="en" ng-app="studentApp">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Manager</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+  
+  </style>
+</head>
+<body ng-controller="StudentController">
+
+  <h2>Add Student</h2>
+  <form ng-submit="addStudent()">
+    <input type="text" ng-model="student.name" placeholder="Name" required><br>
+    <input type="text" ng-model="student.admissionNumber" placeholder="Admission Number" required><br>
+    <input type="email" ng-model="student.email" placeholder="Email Address" required><br>
+    <button type="submit">Add Student</button>
+  </form>
+
+  <table ng-if="students.length">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Admission No.</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="s in students track by $index">
+        <td>{{ s.name }}</td>
+        <td>{{ s.admissionNumber }}</td>
+        <td>{{ s.email }}</td>
+        <td>
+          <a class="btn edit" href="edit.html?id={{$index}}">Edit</a>
+          <button class="btn delete" ng-click="deleteStudent($index)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+// Create an AngularJS app called 'studentApp'
+angular.module('studentApp', [])
+
+  // Define a controller named 'StudentController'
+  .controller('StudentController', ['$scope', function ($scope) {
+
+    // Load existing students from localStorage, or use an empty array if none found
+    const savedData = localStorage.getItem('students');
+    $scope.students = savedData ? JSON.parse(savedData) : [];
+
+    // This object will hold the input values from the form (name, admission number)
+    $scope.student = {};
+
+    // Function to add a new student
+    $scope.addStudent = function () {
+      // Make a copy of the input data and add it to the students list
+      $scope.students.push(angular.copy($scope.student));
+
+      // Save the updated students list to localStorage
+      localStorage.setItem('students', JSON.stringify($scope.students));
+
+      // Clear the input form
+      $scope.student = {};
+    };
+
+    // Function to delete a student by index
+    $scope.deleteStudent = function (index) {
+      // Ask for confirmation before deleting
+      const confirmDelete = confirm("Delete this student?");
+      if (confirmDelete) {
+        // Remove the student at the given index
+        $scope.students.splice(index, 1);
+
+        // Save the updated list back to localStorage
+        localStorage.setItem('students', JSON.stringify($scope.students));
+      }
+    };
+
+  }]);
+
+  </script>
+
+</body>
+</html>

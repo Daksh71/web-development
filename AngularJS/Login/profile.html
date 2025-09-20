@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="profileApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e2f0d9, #c8e6c9);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .profile-card {
+      background: white;
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 450px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .profile-card h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .profile-info {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .profile-info p {
+      margin: 10px 0;
+      font-size: 16px;
+      color: #444;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #222;
+    }
+
+    .back-link {
+      margin-top: 30px;
+      display: inline-block;
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body ng-controller="ProfileController">
+  <div class="profile-card" ng-if="student">
+    <h2>Student Profile</h2>
+    <div class="profile-info">
+      <p><span class="label">Name:</span> {{ student.name }}</p>
+      <p><span class="label">Admission Number:</span> {{ student.admissionNumber }}</p>
+      <p><span class="label">Email:</span> {{ student.email }}</p>
+      <p><span class="label">Phone:</span> {{ student.phone }}</p>
+      <p><span class="label">Class:</span> {{ student.class }}</p>
+      <p><span class="label">Section:</span> {{ student.section }}</p>
+      <p><span class="label">Age:</span> {{ student.age }}</p>
+    </div>
+    <a class="back-link" href="index.html">Back to Student List</a>
+<script>
+  angular.module('profileApp', [])
+    .controller('ProfileController', ['$scope', function($scope) {
+      const params = new URLSearchParams(window.location.search);
+      const id = parseInt(params.get('id'));
+
+      const savedStudents = localStorage.getItem('students');
+      const students = savedStudents ? JSON.parse(savedStudents) : [];
+
+      $scope.student = students[id];
+    }]);
+</script>

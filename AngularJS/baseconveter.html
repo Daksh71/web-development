@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"ng-app="baseConverterApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Base Converter App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #eef2f3, #8e9eab);
+            margin: 10px;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            max-width: 400px;
+            width: 100%;
+            padding: 30px 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            box-sizing: border-box;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.01);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        select,
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            margin-bottom: 15px;
+            transition: border 0.2s;
+        }
+
+        .output {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: green;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #357ab7;
+        }
+    </style>
+</head>
+
+<body ng-controller="ConverterController">
+    <div class="container">
+        <h2>Base Converter</h2>
+
+        <label>Enter Number:</label>
+        <input type="text" ng-model="inputValue" placeholder="Enter a number">
+
+        <label>From Base:
+        <select ng-model="fromBase">
+            <option value="2">Binary (Base 2)</option>
+            <option value="8">Octal (Base 8)</option>
+            <option value="10">Decimal (Base 10)</option>
+            <option value="16">Hexadecimal (Base 16)</option>
+            </label>
+        </select>
+
+        <label>To Base:
+        <select ng-model="toBase">
+            <option value="2">Binary (Base 2)</option>
+            <option value="8">Octal (Base 8)</option>
+            <option value="10">Decimal (Base 10)</option>
+            <option value="16">Hexadecimal (Base 16)</option>
+            </label>
+        </select>
+
+        <div class="output" ng-if="convertedValue !== null">
+            Converted Value: {{ convertedValue }}
+        </div>
+    </div>
+
+    <script>
+        angular.module('baseConverterApp', [])
+            .controller('ConverterController', ['$scope', function ($scope) {
+                $scope.inputValue = '';
+                $scope.fromBase = '10';
+                $scope.toBase = '2';
+                $scope.convertedValue = null;
+
+                $scope.$watchGroup(['inputValue', 'fromBase', 'toBase'], function () {
+                    try {
+                        if ($scope.inputValue === '') {
+                            $scope.convertedValue = null;
+                            return;
+                        }
+
+                        const parsed = parseInt($scope.inputValue, parseInt($scope.fromBase));
+                        if (isNaN(parsed)) {
+                            $scope.convertedValue = 'Invalid Input';
+                        } else {
+                            $scope.convertedValue = parsed.toString(parseInt($scope.toBase));
+                        }
+                    } catch (e) {
+                        $scope.convertedValue = 'Error';
+                    }
+                });
+            }]);
+
+    </script>
+</body>
+
+</html>

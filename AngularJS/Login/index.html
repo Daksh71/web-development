@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="studentApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #e8f5e9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: #ffffff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    form button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #0056b3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      background: #fff;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f1f1f1;
+    }
+
+    tr[draggable="true"] {
+      cursor: move;
+    }
+
+    input[type="text"], input[type="email"] {
+      width: 100%;
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .btn {
+      padding: 5px 10px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+
+    .edit { background-color: #28a745; }
+    .edit:hover { background-color: #218838; }
+
+    .edit2 { background-color: #17a2b8; }
+    .edit2:hover { background-color: #138496; }
+
+    .delete { background-color: #dc3545; }
+    .delete:hover { background-color: #c82333; }
+  </style>
+</head>
+
+<body ng-controller="StudentController">
+  <div class="container">
+    <h2>Add Student</h2>
+    <form ng-submit="addStudent()">
+      <input type="text" ng-model="student.name" placeholder="Name" required>
+      <input type="text" ng-model="student.admissionNumber" placeholder="Admission Number" required>
+      <input type="email" ng-model="student.email" placeholder="Email Address" required>
+      <button type="submit">Add Student</button>
+    </form>
+  </div>
+
+  <table ng-if="students.length">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Admission No.</th>
+        <th>Email</th>
+        <th>Class</th>
+        <th>Section</th>
+        <th>Age</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="s in students track by $index"
+          draggable="true"
+          ng-attr-data-index="{{$index}}"
+          ondragstart="dragStart(event)"
+          ondragover="allowDrop(event)"
+          ondrop="drop(event, this)"
+          ng-click="setActiveRow($index)">
+        
+        <td><label>
+          <span ng-if="activeRowIndex !== $index">{{ s.name }}</span>
+          <input ng-if="activeRowIndex === $index" type="text" ng-model="s.name" ng-blur="updateStudent($index)">
+        </td></label>
+        <td><label>
+          <span ng-if="activeRowIndex !== $index">{{ s.admissionNumber }}</span>
+          <input ng-if="activeRowIndex === $index" type="text" ng-model="s.admissionNumber" ng-blur="updateStudent($index)">
+            </label>
+        </td>
+        <td><label>
+          <span ng-if="activeRowIndex !== $index">{{ s.email }}</span>
+          <input ng-if="activeRowIndex === $index" type="email" ng-model="s.email" ng-blur="updateStudent($index)">
+        </td></label>
+        <td>{{ s.class }}</td>
+        <td>{{ s.section }}</td>
+        <td>{{ s.age }}</td>
+        <td>
+          <a class="btn edit" href="edit.html?id={{$index}}">Edit</a>
+          <a class="btn edit2" href="profile.html?id={{$index}}">Profile</a>
+          <button class="btn delete" ng-click="deleteStudent($index)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    let draggedIndex = null;
+
+    function dragStart(event) {
+      draggedIndex = parseInt(event.target.getAttribute('data-index'));
+    }
+
+    function allowDrop(event) {
+      event.preventDefault(); 
+    }
+
+    function drop(event, target) {
+      event.preventDefault();
+      const targetIndex = parseInt(target.getAttribute('data-index'));
+      if (draggedIndex === null || draggedIndex === targetIndex) return;
+
+      const scope = angular.element(document.body).scope();
+      scope.$apply(() => {
+        const movedStudent = scope.students[draggedIndex];
+        scope.students.splice(draggedIndex, 1);
+        scope.students.splice(targetIndex, 0, movedStudent);
+        localStorage.setItem('students', JSON.stringify(scope.students));
+      });
+
+      draggedIndex = null;
+    }
+  </script>
+
+  <script>
+    angular.module('studentApp', [])
+      .controller('StudentController', ['$scope', function ($scope) {
+        const savedData = localStorage.getItem('students');
+        $scope.students = savedData ? JSON.parse(savedData) : [];
+
+        $scope.student = {};
+        $scope.activeRowIndex = -1;
+
+        $scope.addStudent = function () {
+          $scope.students.push(angular.copy($scope.student));
+          localStorage.setItem('students', JSON.stringify($scope.students));
+          $scope.student = {};
+        };
+
+        $scope.deleteStudent = function (index) {
+          if (confirm("Delete this student?")) {
+            $scope.students.splice(index, 1);
+            localStorage.setItem('students', JSON.stringify($scope.students));
+          }
+        };
+
+        $scope.setActiveRow = function (index) {
+          $scope.activeRowIndex = index;
+        };
+
+        $scope.updateStudent = function (index) {
+          localStorage.setItem('students', JSON.stringify($scope.students));
+          $scope.activeRowIndex = -1;
+        };
+      }]);
+  </script>
+</body>
+</html>

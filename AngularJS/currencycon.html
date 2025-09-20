@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="currencyApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Currency Converter</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js"></script>
+    <!-- <link rel="stylesheet" href="style2.css"> -->
+     <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* background: url('96a924af-0fcd-4414-a378-55416e7fb2a6.jpg') ; */
+    /* background-size: cover; */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #256ab0;
+    color: #1fb98e;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-left: 600px;    
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 450px;
+    margin-left: 450px;
+    margin-top: 100px;
+
+}
+
+.container {
+    background: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 26px;
+    color: #2c3e50;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.2s;
+}
+
+input:focus, select:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 25px;
+    color: #27ae60;
+    font-size: 22px;
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+}
+
+.error {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+     </style>
+</head>
+
+<body ng-controller="CurrencyController">
+    <background-image></background-image>
+    <div class="container">
+        <h1>💱 Currency Converter</h1>
+
+        <div>
+            <label>Amount:</label>
+            <input type="number" ng-click="convert()" ng-model="amount" placeholder="Enter amount">
+        </div>
+
+        <div>
+            <label>From:
+                <select ng-model="fromCurrency" ng-click="convert()" ng-options="currency for currency in currencies"></select>
+        </label></div>
+        
+
+        <div>
+            <label>To:
+                <select ng-model="toCurrency"  ng-click="convert()"ng-options="currency for currency in currencies"></select>
+        </label>       </div>
+
+        <button ng-click="convert()">Convert</button>
+
+        <div ng-if="convertedAmount !== null">
+            <h2>{{ amount }} {{ fromCurrency }} = {{ convertedAmount | number:2 }} {{ toCurrency }}</h2>
+        </div>
+
+        <div ng-if="error">
+            <p class="error">{{ error }}</p>
+        </div>
+    </div>
+</body>
+<script>
+    var app = angular.module('currencyApp', []);
+
+app.controller('CurrencyController', function($scope, $http) {
+    $scope.amount = null;
+    $scope.fromCurrency = 'INR';
+    $scope.toCurrency = 'USD';
+    $scope.convertedAmount = null; 
+    $scope.error = null;
+    $scope.currencies = ['USD', 'EUR', 'GBP', 'INR', 'CAD', 'AUD', 'JPY', 'CHF'];
+
+    $scope.convert = function() {
+        const apiURL = `https://open.er-api.com/v6/latest/${$scope.fromCurrency}`;
+
+        $http.get(apiURL).then(function(response) {
+            const rates = response.data.rates;
+            if (rates && rates[$scope.toCurrency]) {
+                $scope.convertedAmount = $scope.amount * rates[$scope.toCurrency];{}
+                $scope.error = null;
+            } else {
+                $scope.error = "Conversion rate not available.";
+                $scope.convertedAmount = null;
+            }
+        }, function(error) {
+            $scope.error = "API request failed. Please check your connection.";
+            $scope.convertedAmount = null;
+        });
+    };
+});
+
+</script>
+
+</html>
